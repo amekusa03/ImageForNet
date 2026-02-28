@@ -1,0 +1,50 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore ImageForNet/ImageForNet.csproj
+
+    # Windows (x64)
+    - name: Publish Windows (x64)
+      run: |
+        dotnet publish ImageForNet/ImageForNet.csproj -c Release -r win-x64 -p:PublishSingleFile=true --self-contained false -o publish/win-x64
+        cd publish/win-x64
+        zip -r ../../ImageForNet-win-x64.zip .
+
+    # macOS (Apple Silicon)
+    - name: Publish macOS (Apple Silicon)
+      run: |
+        dotnet publish ImageForNet/ImageForNet.csproj -c Release -r osx-arm64 -p:PublishSingleFile=true --self-contained false -o publish/osx-arm64
+        cd publish/osx-arm64
+        zip -r ../../ImageForNet-osx-arm64.zip .
+
+    # Linux (x64)
+    - name: Publish Linux (x64)
+      run: |
+        dotnet publish ImageForNet/ImageForNet.csproj -c Release -r linux-x64 -p:PublishSingleFile=true --self-contained false -o publish/linux-x64
+        cd publish/linux-x64
+        zip -r ../../ImageForNet-linux-x64.zip .
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ImageForNet-Builds
+        path: ImageForNet-*.zip

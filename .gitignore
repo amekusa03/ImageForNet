@@ -1,0 +1,14 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+*.user
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+sample/
