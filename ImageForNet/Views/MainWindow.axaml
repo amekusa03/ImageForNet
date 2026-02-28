@@ -1,0 +1,60 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ImageForNet.ViewModels"
+        x:Class="ImageForNet.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="ImageForNet"
+        SizeToContent="Height"
+        Width="450">
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE, -->
+        <!-- to learn more about this please see https://docs.avaloniaui.net/docs/next/concepts/data-binding/data-context#design-time-datacontext -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top" Spacing="20" Margin="20">
+        <!-- TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" / -->
+        
+        <!-- 透かし設定エリア -->
+        <Border BorderBrush="Gray" BorderThickness="1" Padding="15" CornerRadius="5">
+            <StackPanel Spacing="10">
+                <TextBlock Text="透かし設定" FontWeight="Bold" />
+                
+                <TextBox Text="{Binding WatermarkText}" Watermark="透かし文字を入力" />
+                
+                <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto" RowSpacing="10">
+                    <TextBlock Text="位置:" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="0,0,10,0"/>
+                    <ComboBox ItemsSource="{Binding Positions}" SelectedItem="{Binding SelectedPosition}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" />
+                    
+                    <TextBlock Text="色:" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="0,0,10,0"/>
+                    <ComboBox ItemsSource="{Binding AvailableColors}" SelectedItem="{Binding SelectedColor}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Spacing="10">
+                                    <Border Width="20" Height="20" CornerRadius="3" BorderBrush="Gray" BorderThickness="1">
+                                        <Border.Background>
+                                            <SolidColorBrush Color="{Binding Color}"/>
+                                        </Border.Background>
+                                    </Border>
+                                    <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <TextBlock Text="サイズ:" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Margin="0,0,10,0"/>
+                    <NumericUpDown Value="{Binding WatermarkFontSize}" Minimum="8" Maximum="144" Increment="1" Grid.Row="2" Grid.Column="1" />
+
+                    <TextBlock Text="不透明度:" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Margin="0,0,10,0"/>
+                    <Slider Value="{Binding WatermarkOpacity}" Minimum="0" Maximum="1" Grid.Row="3" Grid.Column="1" />
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- 進捗バー: IsBusyがTrueの時だけ表示 -->
+        <ProgressBar IsIndeterminate="True" IsVisible="{Binding IsBusy}" HorizontalAlignment="Stretch" Height="4" />
+
+        <Button Content="画像を選択して処理" Command="{Binding ProcessImageCommand}" IsEnabled="{Binding !IsBusy}" HorizontalAlignment="Center" />
+    </StackPanel>
+</Window>
