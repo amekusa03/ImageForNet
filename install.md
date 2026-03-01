@@ -1,18 +1,21 @@
-マルチOS（Windows, macOS, Linux）向けのインストーラーを作成方針
+# マルチOS（Windows, macOS, Linux）向けのインストーラーを作成方針
 
 Avalonia（.NET）アプリケーションは、基本的に以下の2段階の手順で配布可能な形式にします。
 
 Publish（発行）: .NETの機能を使って、各OS向けの実行ファイル（バイナリ）を作成する。
 Packaging（パッケージ化）: OSごとのツールを使って、実行ファイルをインストーラー（.msi, .dmg, .debなど）に包む。
+
 1. 実行ファイルの作成 (dotnet publish)
 まず、インストーラーを作る前に、各OS単体で動作するファイルを作成する必要があります。配布方法には大きく分けて2種類あります。
 
-### A) 自己完結型 (Self-Contained)
+## A) 自己完結型 (Self-Contained)
 
 アプリケーションに.NETランタイムを同梱する方法です。ユーザーのPCに.NETがインストールされていなくても動作します。
 
+Some text
+
 **メリット**:
-* ユーザーは.NETのインストールを意識する必要がない。
+* ユーザーは.NETのインストールを意識する必要がない。 
 
 **デメリット**:
 * ファイルサイズが大きくなる（数十MB〜）。
@@ -27,7 +30,7 @@ dotnet publish -c Release -r osx-x64 --self-contained -p:PublishSingleFile=true
 # Linux (x64) 用
 dotnet publish -c Release -r linux-x64 --self-contained -p:PublishSingleFile=true
 
-### B) フレームワーク依存 (Framework-Dependent)　 **確認中**
+## B) フレームワーク依存 (Framework-Dependent)　 **確認中**
 
 > [!NOTE]
 > .NET 6以降では、`-r` (ランタイムID) を指定するとデフォルトで自己完結型になります。フレームワーク依存にするには `--self-contained false` を明示的に指定する必要があります。
@@ -41,7 +44,7 @@ dotnet publish -c Release -r linux-x64 --self-contained -p:PublishSingleFile=tru
 
 bash
 # Windows (x64) 用
-dotnet publish -c Release -r win-x64 -p:PublishSingleFile=true --self-contained false
+dotnet publish -c Release -r win-x64 -p:PublishSingleFile=true --no-self-contained
 # (macOS, Linuxも同様に --self-contained false を追加する)
 
 2. インストーラーの作成 (Packaging)

@@ -1,11 +1,7 @@
 # ImageForNet
 
-![Status](https://img.shields.io/badge/Status-WIP-yellow)
-
 クロスプラットフォーム対応（Windows, macOS, Linux）の画像加工ツールです。
 Webへのアップロード前などに、画像のEXIF情報の削除や、透かし（ウォーターマーク）の追加を簡単に行うことができます。
-
-> ⚠️ **Note**: このプロジェクトは現在開発中（Work In Progress）です。機能追加やデバッグ作業が進行中です。
 
 ## ✨ 主な機能
 
@@ -29,7 +25,7 @@ Webへのアップロード前などに、画像のEXIF情報の削除や、透�
 
 ## 🚀 開発環境のセットアップと実行
 
-```:
+```bash
 dotnet add package SixLabors.ImageSharp
 ```
 
