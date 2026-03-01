@@ -27,39 +27,39 @@ jobs:
       run: |
         dotnet publish ImageForNet/ImageForNet.csproj -c Release -r win-x64 -p:PublishSingleFile=true --no-self-contained -o publish/win-x64
         cd publish/win-x64
-        zip -r ../../ImageForNet-win-x64.zip .
+        zip -r $GITHUB_WORKSPACE/ImageForNet-win-x64.zip .
 
     - name: Publish Windows (x64) Self-Contained
       run: |
         dotnet publish ImageForNet/ImageForNet.csproj -c Release -r win-x64 -p:PublishSingleFile=true --self-contained true -o publish/win-x64-sc
         cd publish/win-x64-sc
-        zip -r ../../ImageForNet-win-x64-sc.zip .
+        zip -r $GITHUB_WORKSPACE/ImageForNet-win-x64-sc.zip .
 
     # macOS (Apple Silicon)
     - name: Publish macOS (Apple Silicon)
       run: |
         dotnet publish ImageForNet/ImageForNet.csproj -c Release -r osx-arm64 -p:PublishSingleFile=true --no-self-contained -o publish/osx-arm64
         cd publish/osx-arm64
-        zip -r ../../ImageForNet-osx-arm64.zip .
+        zip -r $GITHUB_WORKSPACE/ImageForNet-osx-arm64.zip .
 
     - name: Publish macOS (Apple Silicon) Self-Contained
       run: |
         dotnet publish ImageForNet/ImageForNet.csproj -c Release -r osx-arm64 -p:PublishSingleFile=true --self-contained true -o publish/osx-arm64-sc
         cd publish/osx-arm64-sc
-        zip -r ../../ImageForNet-osx-arm64-sc.zip .
+        zip -r $GITHUB_WORKSPACE/ImageForNet-osx-arm64-sc.zip .
 
     # Linux (x64)
     - name: Publish Linux (x64)
       run: |
         dotnet publish ImageForNet/ImageForNet.csproj -c Release -r linux-x64 -p:PublishSingleFile=true --no-self-contained -o publish/linux-x64
         cd publish/linux-x64
-        zip -r ../../ImageForNet-linux-x64.zip .
+        zip -r $GITHUB_WORKSPACE/ImageForNet-linux-x64.zip .
 
     - name: Publish Linux (x64) Self-Contained
       run: |
         dotnet publish ImageForNet/ImageForNet.csproj -c Release -r linux-x64 -p:PublishSingleFile=true --self-contained true -o publish/linux-x64-sc
         cd publish/linux-x64-sc
-        zip -r ../../ImageForNet-linux-x64-sc.zip .
+        zip -r $GITHUB_WORKSPACE/ImageForNet-linux-x64-sc.zip .
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
