@@ -1,0 +1,18 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+*.user
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+sample/
+Imagefornet.code-workspace
+Screenshot from 2026-03-01 10-10-55.png
+
+doc/
