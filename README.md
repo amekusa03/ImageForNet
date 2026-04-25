@@ -65,6 +65,8 @@ cd ImageForNet
 dotnet restore
 dotnet run --project ImageForNet
 ```
+## 🔒追加
+
 
 ## 💾 配布用パッケージの作成 (Publish)
 
